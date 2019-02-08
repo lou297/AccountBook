@@ -13,12 +13,15 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
     companion object {
+        val YEAR = "YEAR"
+        val MONTH = "MONTH"
         val MonthAndDate = "MM월 dd일"
         val CALENDAR = "CALENDAR"
         val LIST ="LIST"
         val DETAIL ="DETAIL"
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, LIST to 1, DETAIL to 2)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         SettingMainView()
-
         GoToCalendarBut.setOnClickListener {
             GoToViewPagerActivity(CALENDAR)
         }

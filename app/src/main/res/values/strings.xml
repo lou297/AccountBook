@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">HouseholdLedger</string>
+
+    <string name="Monday">월</string>
+    <string name="Tuesday">화</string>
+    <string name="Wednesday">수</string>
+    <string name="Thursday">목</string>
+    <string name="Friday">금</string>
+    <string name="Saturday">토</string>
+    <string name="Sunday">일</string>
 </resources>
