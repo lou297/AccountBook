@@ -1,5 +1,6 @@
 package com.pingpong.householdledger
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -13,6 +14,9 @@ class TabMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab_menu)
         CreateTabViewPager()
+        GoToAddRecordBut.setOnClickListener{
+            startActivity(Intent(this,AddRecordActivity::class.java))
+        }
     }
 
     private fun CreateTabViewPager(){
