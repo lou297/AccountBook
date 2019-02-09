@@ -57,7 +57,8 @@
                 android:id="@+id/PaymentMethodSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/MethodArray"/>
+                android:entries="@array/MethodArray"
+                android:gravity="center"/>
 
     </LinearLayout>
 

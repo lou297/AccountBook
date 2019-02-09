@@ -22,9 +22,11 @@ class TabMenuActivity : AppCompatActivity() {
     private fun CreateTabViewPager(){
         MainMenuTabLayout.addTab(MainMenuTabLayout.newTab().setIcon(R.drawable.tab_ic_calendar).setText("달력"))
         MainMenuTabLayout.addTab(MainMenuTabLayout.newTab().setIcon(R.drawable.tab_ic_list).setText("목록"))
+        MainMenuTabLayout.addTab(MainMenuTabLayout.newTab().setIcon(R.drawable.tab_ic_statistics).setText("통계"))
         MainMenuTabLayout.addTab(MainMenuTabLayout.newTab().setIcon(R.drawable.tab_ic_setting).setText("설정"))
 
         MainMenuViewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        MainMenuViewPager.offscreenPageLimit=3
 
         MainMenuViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(MainMenuTabLayout))
         MainMenuTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{

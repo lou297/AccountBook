@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp">
+        <TextView
+                android:text="?"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:text=" / "
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:text="1,100,000"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ProgressBar
+            android:layout_width="350dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_horizontal"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+            android:max="1100000"
+            android:progress="100000"/>
+    <TextView
+            android:text="내역"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:background="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"/>
+    <LinearLayout
+            android:id="@+id/StatisticsGroupLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+    </LinearLayout>
+    <Button
+            android:id="@+id/AddGroupBut"
+            android:text="+"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

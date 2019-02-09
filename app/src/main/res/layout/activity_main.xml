@@ -19,22 +19,26 @@
                 android:gravity="center"/>
         <Button
                 android:id="@+id/GoToCalendarBut"
-                android:text="달력"
+                android:text="@string/Calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
         />
         <Button
                 android:id="@+id/GotoListBut"
-                android:text="지출 목록"
+                android:text="@string/SpendList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"/>
         <Button
-                android:id="@+id/GotoDetailBut"
-                android:text="세부 사항"
+                android:id="@+id/GotoStatisticsBut"
+                android:text="@string/Statistics"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-        />
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/GotoSettingBut"
+                android:text="@string/Setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
             android:layout_width="0dp"

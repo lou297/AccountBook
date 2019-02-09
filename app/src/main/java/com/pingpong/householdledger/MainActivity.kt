@@ -7,9 +7,11 @@ import android.support.design.widget.TabLayout
 import android.util.Log
 import android.view.View
 import com.pingpong.householdledger.Adapter.MainPagerAdapter
+import com.pingpong.householdledger.DataClass.DateInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -17,11 +19,12 @@ class MainActivity : AppCompatActivity() {
         val MONTH = "MONTH"
         val MonthAndDate = "MM월 dd일"
         val CALENDAR = "CALENDAR"
-        val LIST ="LIST"
-        val DETAIL ="DETAIL"
+        val SPENDLIST ="SPENDLIST"
+        val STATISTICS = "STATISTICS"
+        val SETTING ="SETTING"
         val PAGE= "PAGE"
-        val PageList = mapOf(CALENDAR to 0, LIST to 1, DETAIL to 2)
-
+        val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
+        val FullList : ArrayList<DateInfo> = ArrayList()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +36,13 @@ class MainActivity : AppCompatActivity() {
             GoToViewPagerActivity(CALENDAR)
         }
         GotoListBut.setOnClickListener {
-            GoToViewPagerActivity(LIST)
+            GoToViewPagerActivity(SPENDLIST)
         }
-        GotoDetailBut.setOnClickListener {
-            GoToViewPagerActivity(DETAIL)
+        GotoStatisticsBut.setOnClickListener {
+            GoToViewPagerActivity(STATISTICS)
+        }
+        GotoSettingBut.setOnClickListener {
+            GoToViewPagerActivity(SETTING)
         }
 
     }
