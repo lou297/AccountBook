@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import com.pingpong.householdledger.Adapter.MainPagerAdapter
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.DataClass.StatisticsInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,6 +19,9 @@ class MainActivity : AppCompatActivity() {
         val YEAR = "YEAR"
         val MONTH = "MONTH"
         val MonthAndDate = "MM월 dd일"
+        var Today_YEAR = 0
+        var Today_MONTH = 0
+        var Today_Date = 0
         val CALENDAR = "CALENDAR"
         val SPENDLIST ="SPENDLIST"
         val STATISTICS = "STATISTICS"
@@ -25,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
         val FullList : ArrayList<DateInfo> = ArrayList()
+        val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
+        val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +56,9 @@ class MainActivity : AppCompatActivity() {
     private fun SettingMainView(){
         val DF = SimpleDateFormat(MonthAndDate)
         val calendar = Calendar.getInstance()
-
+        Today_YEAR = calendar.get(Calendar.YEAR)
+        Today_MONTH = calendar.get(Calendar.MONTH)
+        Today_Date = calendar.get(Calendar.DATE)
         MainViewDateText.text = DF.format(calendar.time)
 
     }

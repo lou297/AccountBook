@@ -14,7 +14,8 @@
         <EditText
                 android:id="@+id/SubGroupEditMoney"
                 android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"/>
         <Button
                 android:id="@+id/CreateSubBut"
                 android:layout_width="wrap_content"
