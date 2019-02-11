@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import com.pingpong.householdledger.Adapter.MainPagerAdapter
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.DataClass.ExpenseInfo
 import com.pingpong.householdledger.DataClass.StatisticsInfo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val SETTING ="SETTING"
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
-        val FullList : ArrayList<DateInfo> = ArrayList()
+        val FullList : ArrayList<ExpenseInfo> = ArrayList()
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
     }
