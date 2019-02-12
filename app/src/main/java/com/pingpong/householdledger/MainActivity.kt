@@ -20,9 +20,8 @@ class MainActivity : AppCompatActivity() {
         val YEAR = "YEAR"
         val MONTH = "MONTH"
         val MonthAndDate = "MM월 dd일"
-        var Today_YEAR = 0
-        var Today_MONTH = 0
-        var Today_Date = 0
+        val SpendInfoTimeFormmat = "yyyy.MM.DD HH:mm:ss"
+        var Today = Calendar.getInstance()
         val CALENDAR = "CALENDAR"
         val SPENDLIST ="SPENDLIST"
         val STATISTICS = "STATISTICS"
@@ -32,6 +31,15 @@ class MainActivity : AppCompatActivity() {
         val FullList : ArrayList<ExpenseInfo> = ArrayList()
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
+        fun CalYear(cal : Calendar) : Int{
+            return cal.get(Calendar.YEAR)
+        }
+        fun CalMonth(cal : Calendar) : Int{
+            return cal.get(Calendar.MONTH)
+        }
+        fun CalDate(cal : Calendar) : Int{
+            return cal.get(Calendar.DATE)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,11 +64,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun SettingMainView(){
         val DF = SimpleDateFormat(MonthAndDate)
-        val calendar = Calendar.getInstance()
-        Today_YEAR = calendar.get(Calendar.YEAR)
-        Today_MONTH = calendar.get(Calendar.MONTH)
-        Today_Date = calendar.get(Calendar.DATE)
-        MainViewDateText.text = DF.format(calendar.time)
+        MainViewDateText.text = DF.format(Today.time)
 
     }
 
@@ -70,4 +74,5 @@ class MainActivity : AppCompatActivity() {
         ViewPagerIntent.putExtra(PAGE, Page)
         startActivity(ViewPagerIntent)
     }
+
 }

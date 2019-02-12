@@ -15,4 +15,8 @@ class SpendListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_frag_spend_list,container,false)
     }
+
+    private fun CallList(){
+
+    }
 }

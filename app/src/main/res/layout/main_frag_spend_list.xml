@@ -3,5 +3,26 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+            <TextView
+                    android:id="@+id/ListYearAndMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/SpendListTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/SpendListTitle"
+                    android:textSize="24sp"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/SpendListRecylerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+        </android.support.v7.widget.RecyclerView>
 </LinearLayout>

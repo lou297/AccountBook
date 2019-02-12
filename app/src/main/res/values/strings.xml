@@ -24,6 +24,8 @@
 
     <string name="Confirm">확인</string>
     <string name="Cancel">취소</string>
+    //지출 세부 내역
+    <string name="SpendListTitle">세부계획</string>
 
 
 </resources>

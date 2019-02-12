@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
@@ -15,8 +16,12 @@ import android.view.ViewGroup
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_one_day_view.view.*
+import java.util.*
 
 class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<DateInfo>) : RecyclerView.Adapter<CalendarDateAdapter.Holder>(){
+    object GetTime{
+        var cal = Calendar.getInstance()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return Holder(LayoutInflater.from(context).inflate(R.layout.calendar_one_day_view,parent,false))
     }
@@ -37,8 +42,15 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
         val total = view.OneDay_Total
 
         fun bind(dateInfo : DateInfo, position : Int){
-            Date.text = dateInfo.Date.toString()
-            if(dateInfo.Date==0)
+            var date : Int = 0
+            if(dateInfo.TimeInMilli==0L)
+                date = 0
+            else {
+                GetTime.cal.timeInMillis = (dateInfo.TimeInMilli)
+                date = GetTime.cal.get(Calendar.DATE)
+            }
+            Date.text = date.toString()
+            if(date==0)
                 Date.visibility = INVISIBLE
             else{
                 Date.visibility = VISIBLE

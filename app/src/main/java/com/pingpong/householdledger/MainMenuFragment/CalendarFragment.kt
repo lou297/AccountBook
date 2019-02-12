@@ -14,8 +14,7 @@ import com.pingpong.householdledger.Adapter.CalendarViewPagerAdapter.Companion.C
 import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
-import com.pingpong.householdledger.MainActivity.Companion.Today_MONTH
-import com.pingpong.householdledger.MainActivity.Companion.Today_YEAR
+import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_dynamical_view.*
@@ -38,10 +37,9 @@ class CalendarFragment : Fragment() {
     private fun CreateCalendarFragmentList(){
         for(i in 0 .. 24){
             //25개월의 달력을 미리 생성한다.
-            val calendar = Calendar.getInstance()
 
-            var settingYear = Today_YEAR
-            var setttingMonth = Today_MONTH + i - 12
+            var settingYear = Today.get(Calendar.YEAR)
+            var setttingMonth = Today.get(Calendar.MONTH) + i - 12
 
             while(setttingMonth<0 || setttingMonth>11){
                 if(setttingMonth<0) {
