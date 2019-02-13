@@ -42,7 +42,7 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
         val total = view.OneDay_Total
 
         fun bind(dateInfo : DateInfo, position : Int){
-            var date : Int = 0
+            var date : Int
             if(dateInfo.TimeInMilli==0L)
                 date = 0
             else {

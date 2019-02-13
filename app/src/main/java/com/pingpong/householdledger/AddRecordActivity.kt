@@ -42,9 +42,15 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun AddSpendList(){
         Today = Calendar.getInstance()
-
-        val TimeInLength8 = Integer.parseInt(CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString())
-
+        var month : String = CalMonth(Today).toString()
+        var date : String =  CalDate(Today).toString()
+        if(CalMonth(Today)<10)
+            month = "0"+CalMonth(Today)
+        if(CalDate(Today)<10)
+            date =  "0"+CalDate(Today)
+        val TimeInLength8 = Integer.parseInt(CalYear(Today).toString() + month + date)
+//        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
+        //이렇게도 표현 가능하다.
         var Expense = ExpenseInfo(TimeInLength8, Today.timeInMillis,ClassificationSpinner.selectedItem.toString(),Integer.parseInt(MoneyRecordField.text.toString()),PaymentMethodSpinner.selectedItem.toString(),null)
         FullList.add(Expense)
     }

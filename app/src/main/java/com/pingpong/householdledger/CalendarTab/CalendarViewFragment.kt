@@ -12,6 +12,7 @@ import com.pingpong.householdledger.Adapter.CalendarDateAdapter
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
+import com.pingpong.householdledger.MainMenuFragment.CalendarFragment
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_dynamical_view.*
 import kotlinx.android.synthetic.main.main_frag_calendar.*
@@ -22,6 +23,8 @@ class CalendarViewFragment :Fragment() {
         val YEAR = arguments!!.getInt(YEAR)
         val MONTH = arguments!!.getInt(MONTH)
         CreateMonthViewDynamically(YEAR,MONTH)
+        //사실상 null이 들어오면 무조건 문제가 생긴다.
+        // ?:를 통해 처리해 줄 수도 있지만 이렇게 해주어도 정상적인 동작이 아니다.
 
 
         super.onActivityCreated(savedInstanceState)
@@ -32,8 +35,7 @@ class CalendarViewFragment :Fragment() {
     }
 
     private fun CreateMonthViewDynamically(YEAR : Int, MONTH : Int){
-        CalendarYearAndMonth.text = (MONTH+1).toString() + "월"
-        var calendar = Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         calendar.set(YEAR, MONTH, 1)
 
         val DateInfoList = ArrayList<DateInfo>()

@@ -1,5 +1,6 @@
 package com.pingpong.householdledger
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.pingpong.householdledger.Adapter.MainPagerAdapter
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.DataClass.ExpenseInfo
 import com.pingpong.householdledger.DataClass.StatisticsInfo
+import com.pingpong.householdledger.ReturnView.CompletedStatisticsView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         val FullList : ArrayList<ExpenseInfo> = ArrayList()
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
+        var StatisticsDrawDown : Int = 0
+        var StatisticsTotalMoney : Int = 0
         fun CalYear(cal : Calendar) : Int{
             return cal.get(Calendar.YEAR)
         }
@@ -62,10 +66,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        MainPageStatisticsGroupLayout.removeAllViews()
+        SettingMainView()
+        super.onResume()
+    }
+
     private fun SettingMainView(){
         val DF = SimpleDateFormat(MonthAndDate)
         MainViewDateText.text = DF.format(Today.time)
+        MainPageTotalMoneyTextView.text = StatisticsTotalMoney.toString()
+        for(i in StatisticsList){
+            val GroupView = CompletedStatisticsView(applicationContext,i.ContentName,i.Total.toString())
+            MainPageStatisticsGroupLayout.addView(GroupView)
 
+        }
     }
 
     private fun GoToViewPagerActivity(Selected : String){
@@ -74,5 +89,6 @@ class MainActivity : AppCompatActivity() {
         ViewPagerIntent.putExtra(PAGE, Page)
         startActivity(ViewPagerIntent)
     }
+
 
 }

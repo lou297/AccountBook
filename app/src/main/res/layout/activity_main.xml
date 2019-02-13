@@ -43,8 +43,22 @@
     <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+        <TextView
+                android:id="@+id/MainPageTotalMoneyTextView"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <LinearLayout
+                android:id="@+id/MainPageStatisticsGroupLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+        </LinearLayout>
     </LinearLayout>
+
 
 
 </LinearLayout>
