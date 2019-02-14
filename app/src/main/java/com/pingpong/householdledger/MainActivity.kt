@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
         val FullList : ArrayList<ExpenseInfo> = ArrayList()
+        val DateInfoList : ArrayList<DateInfo> = ArrayList()
+        val DateInfoMap : HashMap<Int,Int> = HashMap();
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
         var StatisticsDrawDown : Int = 0

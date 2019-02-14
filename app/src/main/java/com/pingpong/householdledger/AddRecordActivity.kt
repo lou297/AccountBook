@@ -3,11 +3,15 @@ package com.pingpong.householdledger
 import android.app.DatePickerDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
+import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.DataClass.ExpenseInfo
 import com.pingpong.householdledger.MainActivity.Companion.CalDate
 import com.pingpong.householdledger.MainActivity.Companion.CalMonth
 import com.pingpong.householdledger.MainActivity.Companion.CalYear
+import com.pingpong.householdledger.MainActivity.Companion.DateInfoList
+import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
 import com.pingpong.householdledger.MainActivity.Companion.FullList
 import com.pingpong.householdledger.MainActivity.Companion.MonthAndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
@@ -51,7 +55,22 @@ class AddRecordActivity : AppCompatActivity() {
         val TimeInLength8 = Integer.parseInt(CalYear(Today).toString() + month + date)
 //        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
         //이렇게도 표현 가능하다.
-        var Expense = ExpenseInfo(TimeInLength8, Today.timeInMillis,ClassificationSpinner.selectedItem.toString(),Integer.parseInt(MoneyRecordField.text.toString()),PaymentMethodSpinner.selectedItem.toString(),null)
+        var Expense = ExpenseInfo(TimeInLength8, Today.timeInMillis,ClassificationSpinner.selectedItem.toString(),Integer.parseInt(MoneyRecordField.text.toString()),PaymentMethodSpinner.selectedItem.toString(),"zcx")
+        Log.d("test",Expense.toString())
         FullList.add(Expense)
+
+        var Check = 0
+        for(i in DateInfoList){
+            if(i.DateInLength8==TimeInLength8){
+                i.Spend += Integer.parseInt(MoneyRecordField.text.toString())
+                i.Total = i.Income-i.Spend
+                Check = 1;
+            }
+        }
+        if(Check==0){
+            DateInfoList.add(DateInfo(TimeInLength8, Today.timeInMillis, Spend = Integer.parseInt(MoneyRecordField.text.toString()), Total =  -(Integer.parseInt(MoneyRecordField.text.toString()))))
+        }
+
+        finish()
     }
 }

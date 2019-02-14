@@ -37,17 +37,24 @@ class CalendarViewFragment :Fragment() {
     private fun CreateMonthViewDynamically(YEAR : Int, MONTH : Int){
         val calendar = Calendar.getInstance()
         calendar.set(YEAR, MONTH, 1)
-
         val DateInfoList = ArrayList<DateInfo>()
-
         for (i in 1..calendar.get(Calendar.DAY_OF_WEEK) - 1) {
             DateInfoList.add(DateInfo())
         }
 
         for (i in 1..calendar.getActualMaximum(java.util.Calendar.DATE)) {
             calendar.set(YEAR, MONTH, i)
+            var dateInLenght8 = YEAR.toString()
+            when{
+                MONTH <10 -> dateInLenght8+=("0"+MONTH.toString())
+                else -> dateInLenght8 += MONTH.toString()
+            }
+            when{
+                i <10 -> dateInLenght8 +=("0"+i.toString())
+                else -> dateInLenght8 += i.toString()
+            }
 //            Log.d("test",calendar.get(Calendar.DATE).toString())
-            DateInfoList.add(DateInfo(TimeInMilli= calendar.timeInMillis))
+            DateInfoList.add(DateInfo(DateInLength8 = dateInLenght8.toInt(),TimeInMilli= calendar.timeInMillis))
         }
 
         CalendarMonthRecyclerView.layoutManager = GridLayoutManager(context, 7)
