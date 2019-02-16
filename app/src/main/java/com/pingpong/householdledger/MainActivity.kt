@@ -31,8 +31,7 @@ class MainActivity : AppCompatActivity() {
         val SETTING ="SETTING"
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
-        val FullList : ArrayList<ExpenseInfo> = ArrayList()
-        val DateInfoList : ArrayList<DateInfo> = ArrayList()
+        val FullList : ArrayList<DateInfo> = ArrayList()
         val DateInfoMap : HashMap<Int,Int> = HashMap();
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
@@ -82,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         for(i in StatisticsList){
             val GroupView = CompletedStatisticsView(applicationContext,i.ContentName,i.Total.toString())
             MainPageStatisticsGroupLayout.addView(GroupView)
-
         }
     }
 

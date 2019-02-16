@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-                android:id="@+id/ListDate"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/OneDayTotalEarn"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:id="@+id/ListDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"/>
+            <TextView
+                    android:id="@+id/OneDayTotalIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"/>
+            <TextView
+                    android:id="@+id/OneDayTotalSpend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"/>
+            <TextView
+                    android:id="@+id/OneDayTotalMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/DateLinearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/OneDayTotalSpend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <TextView
-                android:id="@+id/OneDayTotalMoney"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+        </LinearLayout>
 </LinearLayout>
