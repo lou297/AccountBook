@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.pingpong.householdledger.Adapter.CalendarDateAdapter
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
+import com.pingpong.householdledger.MainActivity.Companion.FullList
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
 import com.pingpong.householdledger.MainMenuFragment.CalendarFragment
@@ -53,8 +55,20 @@ class CalendarViewFragment :Fragment() {
                 i <10 -> dateInLenght8 +=("0"+i.toString())
                 else -> dateInLenght8 += i.toString()
             }
-//            Log.d("test",calendar.get(Calendar.DATE).toString())
-            DateInfoList.add(DateInfo(DateInLength8 = dateInLenght8.toInt(),TimeInMilli= calendar.timeInMillis))
+
+            val IntDateInLength8 = dateInLenght8.toInt()
+
+            if(DateInfoMap.containsKey(IntDateInLength8)){
+                for(j in FullList){
+                    if(j.DateInLength8==IntDateInLength8){
+                        DateInfoList.add(DateInfo(DateInLength8 = IntDateInLength8, TimeInMilli =  calendar.timeInMillis, Spend = j.Spend, Total = j.Total, ExpenseList = j.ExpenseList))
+                        break;
+                    }
+                }
+            } else{
+                DateInfoList.add(DateInfo(DateInLength8 = IntDateInLength8,TimeInMilli= calendar.timeInMillis))
+            }
+
         }
 
         CalendarMonthRecyclerView.layoutManager = GridLayoutManager(context, 7)

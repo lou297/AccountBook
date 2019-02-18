@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         val SETTING ="SETTING"
         val PAGE= "PAGE"
         val PageList = mapOf(CALENDAR to 0, SPENDLIST to 1, STATISTICS to 2, SETTING to 3)
+        //달력 갯수
+        val TotalCalendarFragmentNum = 25
+        var CalendarYearList = mutableListOf<Int>();
+        var CalendarMonthList = mutableListOf<Int>();
+        //달력 목록
         val FullList : ArrayList<DateInfo> = ArrayList()
         val DateInfoMap : HashMap<Int,Int> = HashMap();
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()

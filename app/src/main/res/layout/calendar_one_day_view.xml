@@ -20,7 +20,7 @@
                 android:textSize="20sp"/>
     </LinearLayout>
     <TextView
-            android:id="@+id/OneDay_Earn"
+            android:id="@+id/OneDay_Income"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"

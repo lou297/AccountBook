@@ -18,11 +18,12 @@ import com.pingpong.householdledger.Adapter.CalendarViewPagerAdapter.Companion.C
 import com.pingpong.householdledger.CalendarPopUpActivity
 import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.MainActivity.Companion.CalendarMonthList
+import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.Today
+import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
-import com.pingpong.householdledger.MainMenuFragment.CalendarFragment.Date.CalendarMonthList
-import com.pingpong.householdledger.MainMenuFragment.CalendarFragment.Date.CalendarYearList
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_dynamical_view.*
 import kotlinx.android.synthetic.main.main_frag_calendar.*
@@ -32,10 +33,6 @@ import kotlin.collections.ArrayList
 
 class CalendarFragment : Fragment() {
     val SELECT_MONTH_INTENT = 1000
-    object Date{
-        var CalendarYearList = mutableListOf<Int>();
-        var CalendarMonthList = mutableListOf<Int>();
-    }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         CreateCalendarFragmentList()
         CalendarViewPager.adapter = CalendarViewPagerAdapter(childFragmentManager)
@@ -69,8 +66,18 @@ class CalendarFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun onResume() {
+        super.onResume()
+        val index = CalendarViewPager.currentItem
+        val adapter =  CalendarViewPagerAdapter(childFragmentManager)
+        CalendarViewPager.adapter = adapter
+        adapter.notifyDataSetChanged()
+        CalendarViewPager.currentItem = index
+        SetCalendarYearAndMonth(index)
+    }
+
     private fun CreateCalendarFragmentList(){
-        for(i in 0 .. 24){
+        for(i in 0 until TotalCalendarFragmentNum){
             //25개월의 달력을 미리 생성한다.
 
             var settingYear = Today.get(Calendar.YEAR)

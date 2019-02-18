@@ -3,22 +3,23 @@ package com.pingpong.householdledger
 import android.app.DatePickerDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
-import com.pingpong.householdledger.Adapter.SpendListRecylerViewAdapter
+import com.pingpong.householdledger.Adapter.CalendarViewPagerAdapter
+import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.DataClass.ExpenseInfo
 import com.pingpong.householdledger.MainActivity.Companion.CalDate
 import com.pingpong.householdledger.MainActivity.Companion.CalMonth
 import com.pingpong.householdledger.MainActivity.Companion.CalYear
+import com.pingpong.householdledger.MainActivity.Companion.CalendarMonthList
+import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
 import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
 import com.pingpong.householdledger.MainActivity.Companion.FullList
 import com.pingpong.householdledger.MainActivity.Companion.MonthAndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
 import com.pingpong.householdledger.MainActivity.Companion.Today
+import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import kotlinx.android.synthetic.main.activity_add_record.*
-import kotlinx.android.synthetic.main.activity_tab_menu.*
-import kotlinx.android.synthetic.main.main_frag_spend_list.*
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
@@ -48,13 +49,14 @@ class AddRecordActivity : AppCompatActivity() {
 
     private fun AddSpendList(){
         Today = Calendar.getInstance()
+        val year : String = CalYear(Today).toString()
         var month : String = CalMonth(Today).toString()
         var date : String =  CalDate(Today).toString()
         if(CalMonth(Today)<10)
             month = "0"+CalMonth(Today)
         if(CalDate(Today)<10)
             date =  "0"+CalDate(Today)
-        val TimeInLength8 = Integer.parseInt(CalYear(Today).toString() + month + date)
+        val TimeInLength8 = Integer.parseInt(year + month + date)
 //        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
         //이렇게도 표현 가능하다.
         val TimeinMillis = Today.timeInMillis
@@ -78,7 +80,20 @@ class AddRecordActivity : AppCompatActivity() {
             DateInfoMap.put(TimeInLength8,1)
         }
 
-        SpendListRecylerViewAdapter(this,FullList).notifyDataSetChanged()
+        for(i in 0 until TotalCalendarFragmentNum){
+            if(CalendarYearList[i]==year.toInt()&& CalendarMonthList[i]==month.toInt()){
+                val Frags = CalendarViewFragment()
+                Frags.apply {
+                    arguments = Bundle().apply {
+                        putInt(MainActivity.YEAR,year.toInt())
+                        putInt(MainActivity.MONTH,month.toInt())
+                    }
+                }
+                CalendarViewPagerAdapter.CalendarViewFragmentList[i]=Frags
+                break;
+            }
+        }
         finish()
     }
+
 }

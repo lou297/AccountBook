@@ -14,6 +14,7 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_one_day_view.view.*
 import java.util.*
@@ -37,7 +38,7 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
     inner class Holder(view : View) : RecyclerView.ViewHolder(view){
         val Date = view.OneDay_Date
         val Holiday = view.OneDay_Holiday
-        val Earn = view.OneDay_Earn
+        val Income = view.OneDay_Income
         val Spend = view.OneDay_Spend
         val total = view.OneDay_Total
 
@@ -59,6 +60,12 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
                     0 -> Date.setTextColor(ContextCompat.getColor(context,R.color.red))
                     else -> Date.setTextColor(ContextCompat.getColor(context,R.color.black))
                 }
+            }
+
+            if(dateInfo.ExpenseList.size!=0){
+                Income.text = dateInfo.Income.toString()
+                Spend.text = dateInfo.Spend.toString()
+                total.text = dateInfo.Total.toString()
             }
 
 
