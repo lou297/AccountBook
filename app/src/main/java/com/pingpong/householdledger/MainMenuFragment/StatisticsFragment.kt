@@ -25,19 +25,19 @@ import kotlinx.android.synthetic.main.statistics_sub_group.*
 class StatisticsFragment : Fragment(){
     var EditTextView = GONE
     var TotalMoneyText = VISIBLE
+    var SubGroup :StatisticsView? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        SubGroup = StatisticsView(context!!)
         //뷰 미리 생성
-        val SubGroup = StatisticsView(context!!)
-        StatisticsGroupLayout.addView(SubGroup)
-        RemoveView(SubGroup)
         //싱글톤으로 생성해주려면??
 ////////////////////////////////////////////////
         ///////////////////////싱글톤으로 바꿔 줘야됨
+        SettingStatisticsView()
+
         AddGroupBut.setOnClickListener {
-            AddGroupFun(SubGroup)
+            AddGroupFun(SubGroup!!)
         }
         EditTotalMoneyBut.setOnClickListener {
             EditTotalMoney()
@@ -48,6 +48,12 @@ class StatisticsFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.main_frag_statistics,container,false)
     }
+
+    override fun onResume() {
+        super.onResume()
+        SettingStatisticsView()
+    }
+
     private fun CreateCompletedView(layout : LinearLayout){
         StatisticsGroupLayout.addView(layout)
     }
@@ -57,6 +63,16 @@ class StatisticsFragment : Fragment(){
     }
     private fun RemoveView(layout : LinearLayout){
         layout.visibility = GONE
+    }
+
+    private fun SettingStatisticsView(){
+        StatisticsGroupLayout.removeAllViews()
+
+        StatisticsGroupLayout.addView(SubGroup)
+        RemoveView(SubGroup!!)
+        for(i in StatisticsList){
+            CreateCompletedView(CompletedStatisticsView(context!!,i.ContentName,i.Total.toString()))
+        }
     }
 
     private fun AddGroupFun(SubGroup : LinearLayout){
