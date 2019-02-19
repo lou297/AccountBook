@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
         var StatisticsDrawDown : Int = 0
         var StatisticsTotalMoney : Int = 0
+        val MoneyDecimalFormat = java.text.DecimalFormat("#,###")
         fun CalYear(cal : Calendar) : Int{
             return cal.get(Calendar.YEAR)
         }
