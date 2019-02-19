@@ -1,9 +1,14 @@
 package com.pingpong.householdledger
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.pingpong.householdledger.Adapter.CalendarViewPagerAdapter
 import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.DataClass.DateInfo
@@ -25,6 +30,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddRecordActivity : AppCompatActivity() {
+    var MoneyRecordString = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +40,33 @@ class AddRecordActivity : AppCompatActivity() {
 
         }
         ConfirmBut.setOnClickListener {
-            AddSpendList()
+            val MoneyString = MoneyRecordField.text.toString().replace(",","")
+            when{
+                MoneyString.length < 4 -> Toast.makeText(applicationContext, "금액을 1,000원 이상 입력해 주세요.",Toast.LENGTH_SHORT).show()
+                else -> AddSpendList()
+            }
+
         }
         CancelBut.setOnClickListener {
             finish()
         }
+
+        MoneyRecordField.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(!TextUtils.isEmpty(s.toString()) && !s.toString().equals(MoneyRecordString)) {
+                    MoneyRecordString = MainActivity.MoneyDecimalFormat.format((s.toString().replace(",","")).toDouble())
+                    MoneyRecordField.setText(MoneyRecordString)
+                    MoneyRecordField.setSelection(MoneyRecordString.length)
+                }
+            }
+
+        })
     }
 
     private fun InitialSetting(){
@@ -60,11 +88,19 @@ class AddRecordActivity : AppCompatActivity() {
 //        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
         //이렇게도 표현 가능하다.
         val TimeinMillis = Today.timeInMillis
-        val Classify = ClassificationSpinner.selectedItem.toString()
-        val Money = MoneyRecordField.text.toString().toInt()
+
+        val Classify : String? = when(ClassificationSpinner.selectedItemPosition) {
+            0 -> null
+            else ->  ClassificationSpinner.selectedItem.toString()
+        }
+
+        val Money = MoneyRecordField.text.toString().replace(",","").toInt()
+
         val PaymentMethod = PaymentMethodSpinner.selectedItem.toString()
+
         val Content = ContentRecordField.text.toString()
-        var Expense = ExpenseInfo(TimeInLength8, TimeinMillis,Classify,Money,PaymentMethod,Content)
+
+        val Expense = ExpenseInfo(TimeInLength8, TimeinMillis,Classify,Money,PaymentMethod,Content)
 
         if(DateInfoMap.containsKey(TimeInLength8)){
             for(i in FullList.indices){

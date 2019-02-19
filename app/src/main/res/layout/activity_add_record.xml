@@ -49,6 +49,7 @@
                 android:id="@+id/MoneyRecordField"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:maxLength="12"
                 android:inputType="numberSigned"/>
 
     </LinearLayout>
