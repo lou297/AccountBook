@@ -17,6 +17,7 @@ import com.pingpong.householdledger.MainActivity.Companion.CalDate
 import com.pingpong.householdledger.MainActivity.Companion.CalMonth
 import com.pingpong.householdledger.MainActivity.Companion.CalYear
 import com.pingpong.householdledger.MainActivity.Companion.CalendarMonthList
+import com.pingpong.householdledger.MainActivity.Companion.CalendarViewFragmentList
 import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
 import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
 import com.pingpong.householdledger.MainActivity.Companion.FullList
@@ -125,7 +126,7 @@ class AddRecordActivity : AppCompatActivity() {
                         putInt(MainActivity.MONTH,month.toInt())
                     }
                 }
-                CalendarViewPagerAdapter.CalendarViewFragmentList[i]=Frags
+                CalendarViewFragmentList[i]=Frags
                 break;
             }
         }

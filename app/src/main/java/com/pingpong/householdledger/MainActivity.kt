@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.View
 import com.pingpong.householdledger.Adapter.MainPagerAdapter
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         val TotalCalendarFragmentNum = 25
         var CalendarYearList = mutableListOf<Int>();
         var CalendarMonthList = mutableListOf<Int>();
+        var CalendarViewFragmentList : ArrayList<Fragment> = ArrayList()
         //달력 목록
         val FullList : ArrayList<DateInfo> = ArrayList()
         val DateInfoMap : HashMap<Int,Int> = HashMap();
