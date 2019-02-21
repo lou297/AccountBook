@@ -35,7 +35,7 @@ class CalendarFragment : Fragment() {
     val SELECT_MONTH_INTENT = 1000
     var ChangeCalendarSynchronization = 1
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        ReStartCalendarList()
+        ReStartCalendarList(Today.get(Calendar.YEAR),Today.get(Calendar.MONTH))
 
         PrevMonthBut.setOnClickListener {
             CalendarViewPagerControl("Prev")
@@ -45,7 +45,7 @@ class CalendarFragment : Fragment() {
         }
         CalendarYearAndMonth.setOnClickListener {
             val PopUpMenu = Intent(context, CalendarPopUpActivity::class.java)
-            PopUpMenu.putExtra(YEAR, CalendarYearList[12])
+            PopUpMenu.putExtra(YEAR, CalendarYearList[TotalCalendarFragmentNum/2])
             startActivityForResult(PopUpMenu, SELECT_MONTH_INTENT)
         }
         super.onActivityCreated(savedInstanceState)
@@ -59,7 +59,9 @@ class CalendarFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == SELECT_MONTH_INTENT) {
             if (resultCode == RESULT_OK) {
-
+                if(data!=null&&data.hasExtra(YEAR) && data.hasExtra(MONTH)){
+                    ReStartCalendarList(data.getIntExtra(YEAR,Today.get(Calendar.YEAR)),data.getIntExtra(MONTH,Today.get(Calendar.MONTH)))
+                }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -67,27 +69,28 @@ class CalendarFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[12]).commit()
-        SetCalendarYearAndMonth(12)
+        Log.d("test","resume")
+        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[TotalCalendarFragmentNum/2]).commit()
+        SetCalendarYearAndMonth(TotalCalendarFragmentNum/2)
         ChangeCalendarSynchronization = 1
-        if(CalendarViewFragmentList.size!=25||CalendarYearList.size!=25||CalendarMonthList.size!=25){
-            ReStartCalendarList()
+        if(CalendarViewFragmentList.size!=TotalCalendarFragmentNum||CalendarYearList.size!=TotalCalendarFragmentNum||CalendarMonthList.size!=TotalCalendarFragmentNum){
+            ReStartCalendarList(Today.get(Calendar.YEAR),Today.get(Calendar.MONTH))
         }
     }
 
-    private fun ReStartCalendarList(){
+    private fun ReStartCalendarList(year: Int , month : Int){
         CalendarYearList.clear()
         CalendarMonthList.clear()
         CalendarViewFragmentList.clear()
-        CreateCalendarFragmentList()
+        CreateCalendarFragmentList(year,month)
     }
 
-    private fun CreateCalendarFragmentList() {
+    private fun CreateCalendarFragmentList(year: Int , month : Int) {
         for (i in 0 until TotalCalendarFragmentNum) {
             //25개월의 달력을 미리 생성한다.
 
-            var settingYear = Today.get(Calendar.YEAR)
-            var setttingMonth = Today.get(Calendar.MONTH) + i - 12
+            var settingYear = year
+            var setttingMonth = month + i - 12
 
             while (setttingMonth < 0 || setttingMonth > 11) {
                 if (setttingMonth < 0) {
@@ -110,8 +113,8 @@ class CalendarFragment : Fragment() {
             }
             CalendarViewFragmentList.add(Frags)
         }
-        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[12]).commit()
-        SetCalendarYearAndMonth(12)
+        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[TotalCalendarFragmentNum/2]).commit()
+        SetCalendarYearAndMonth(TotalCalendarFragmentNum/2)
     }
 
     private fun CalendarViewPagerControl(s: String) {

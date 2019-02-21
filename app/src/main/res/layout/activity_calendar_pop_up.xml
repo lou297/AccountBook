@@ -22,15 +22,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
-    <LinearLayout
+    <TableLayout
+            android:id="@+id/CalendarMonthTableLayout"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical">
-        <LinearLayout
+            android:layout_width="match_parent">
+        <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
             <TextView
+                    android:id="@+id/MONTH1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -38,6 +38,7 @@
                     android:textSize="42sp"
                     android:text="@string/January"/>
             <TextView
+                    android:id="@+id/MONTH2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -45,6 +46,7 @@
                     android:textSize="42sp"
                     android:text="@string/February"/>
             <TextView
+                    android:id="@+id/MONTH3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -52,19 +54,20 @@
                     android:textSize="42sp"
                     android:text="@string/March"/>
             <TextView
+                    android:id="@+id/MONTH4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="42sp"
                     android:text="@string/April"/>
-        </LinearLayout>
+        </TableRow>
 
-        <LinearLayout
+        <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
             <TextView
+                    android:id="@+id/MONTH5"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -72,6 +75,7 @@
                     android:textSize="42sp"
                     android:text="@string/May"/>
             <TextView
+                    android:id="@+id/MONTH6"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -79,6 +83,7 @@
                     android:textSize="42sp"
                     android:text="@string/June"/>
             <TextView
+                    android:id="@+id/MONTH7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -86,19 +91,20 @@
                     android:textSize="42sp"
                     android:text="@string/July"/>
             <TextView
+                    android:id="@+id/MONTH8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="42sp"
                     android:text="@string/August"/>
-        </LinearLayout>
+        </TableRow>
 
-        <LinearLayout
+        <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
             <TextView
+                    android:id="@+id/MONTH9"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -106,6 +112,7 @@
                     android:textSize="42sp"
                     android:text="@string/September"/>
             <TextView
+                    android:id="@+id/MONTH10"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -113,6 +120,7 @@
                     android:textSize="42sp"
                     android:text="@string/October"/>
             <TextView
+                    android:id="@+id/MONTH11"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -120,15 +128,16 @@
                     android:textSize="42sp"
                     android:text="@string/November"/>
             <TextView
+                    android:id="@+id/MONTH12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="42sp"
                     android:text="@string/December"/>
-        </LinearLayout>
+        </TableRow>
 
 
-    </LinearLayout>
+    </TableLayout>
 
 </LinearLayout>
