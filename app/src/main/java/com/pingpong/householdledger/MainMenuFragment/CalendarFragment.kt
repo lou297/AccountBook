@@ -33,11 +33,10 @@ import kotlin.collections.ArrayList
 
 class CalendarFragment : Fragment() {
     val SELECT_MONTH_INTENT = 1000
+    var ChangeCalendarSynchronization = 1
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        CreateCalendarFragmentList()
-        CalendarViewPager.adapter = CalendarViewPagerAdapter(childFragmentManager)
-        CalendarViewPager.currentItem = 12
-        SetCalendarYearAndMonth(CalendarViewPager.currentItem)
+        ReStartCalendarList()
+
         PrevMonthBut.setOnClickListener {
             CalendarViewPagerControl("Prev")
         }
@@ -46,7 +45,7 @@ class CalendarFragment : Fragment() {
         }
         CalendarYearAndMonth.setOnClickListener {
             val PopUpMenu = Intent(context, CalendarPopUpActivity::class.java)
-            PopUpMenu.putExtra(YEAR, CalendarYearList[CalendarViewPager.currentItem])
+            PopUpMenu.putExtra(YEAR, CalendarYearList[12])
             startActivityForResult(PopUpMenu, SELECT_MONTH_INTENT)
         }
         super.onActivityCreated(savedInstanceState)
@@ -68,12 +67,19 @@ class CalendarFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val index = CalendarViewPager.currentItem
-        val adapter = CalendarViewPagerAdapter(childFragmentManager)
-        CalendarViewPager.adapter = adapter
-        adapter.notifyDataSetChanged()
-        CalendarViewPager.currentItem = index
-        SetCalendarYearAndMonth(index)
+        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[12]).commit()
+        SetCalendarYearAndMonth(12)
+        ChangeCalendarSynchronization = 1
+        if(CalendarViewFragmentList.size!=25||CalendarYearList.size!=25||CalendarMonthList.size!=25){
+            ReStartCalendarList()
+        }
+    }
+
+    private fun ReStartCalendarList(){
+        CalendarYearList.clear()
+        CalendarMonthList.clear()
+        CalendarViewFragmentList.clear()
+        CreateCalendarFragmentList()
     }
 
     private fun CreateCalendarFragmentList() {
@@ -104,19 +110,24 @@ class CalendarFragment : Fragment() {
             }
             CalendarViewFragmentList.add(Frags)
         }
+        fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[12]).commit()
+        SetCalendarYearAndMonth(12)
     }
 
     private fun CalendarViewPagerControl(s: String) {
-        when (s) {
-            "Prev" -> {
-                CalendarViewPager.currentItem--
-                SetCalendarYearAndMonth(CalendarViewPager.currentItem)
-                AddCalendarFragment(s)
-            }
-            "Next" -> {
-                CalendarViewPager.currentItem++
-                SetCalendarYearAndMonth(CalendarViewPager.currentItem)
-                AddCalendarFragment(s)
+        if(ChangeCalendarSynchronization==1){
+            ChangeCalendarSynchronization=0
+            when (s) {
+                "Prev" -> {
+                    fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[11]).commit()
+                    SetCalendarYearAndMonth(11)
+                    AddCalendarFragment(s)
+                }
+                "Next" -> {
+                    fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[13]).commit()
+                    SetCalendarYearAndMonth(13)
+                    AddCalendarFragment(s)
+                }
             }
         }
     }
@@ -145,10 +156,13 @@ class CalendarFragment : Fragment() {
                 CalendarYearList.add(0,PrevYear)
                 CalendarMonthList.add(0,PrevMonth)
                 CalendarViewFragmentList.add(0,Frags)
+                CalendarViewFragmentList.removeAt(CalendarViewFragmentList.size-1)
+                CalendarMonthList.removeAt(CalendarMonthList.size-1)
+                CalendarYearList.removeAt(CalendarYearList.size-1)
             }
             "Next" -> {
-                var NextMonth = (CalendarMonthList.get(0) )+1
-                var NextYear = CalendarYearList.get(0)
+                var NextMonth = (CalendarMonthList.get(CalendarMonthList.size-1) )+1
+                var NextYear = CalendarYearList.get(CalendarYearList.size-1)
                 if(NextMonth==13){
                     NextMonth=1
                     NextYear++
@@ -164,14 +178,14 @@ class CalendarFragment : Fragment() {
                 CalendarYearList.add(NextYear)
                 CalendarMonthList.add(NextMonth)
                 CalendarViewFragmentList.add(Frags)
+                CalendarViewFragmentList.removeAt(0)
+                CalendarMonthList.removeAt(0)
+                CalendarYearList.removeAt(0)
             }
         }
-        Log.d("Test",CalendarMonthList.toString())
-        Log.d("Test", CalendarViewFragmentList.toString())
-        Log.d("Test",CalendarViewPager.currentItem.toString())
-//        val adapter = CalendarViewPagerAdapter(childFragmentManager)
-//        CalendarViewPager.adapter = adapter
-//        adapter.notifyDataSetChanged()
+        ChangeCalendarSynchronization =1
+        Log.d("test", CalendarYearList.toString())
+        Log.d("test", CalendarMonthList.toString())
     }
 
 
