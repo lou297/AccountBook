@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         val YEAR = "YEAR"
         val MONTH = "MONTH"
+        val DATE = "DATE"
         val MonthAndDate = "MM월 dd일"
         val SpendInfoTimeFormmat = "yyyy.MM.DD HH:mm:ss"
         var Today = Calendar.getInstance()

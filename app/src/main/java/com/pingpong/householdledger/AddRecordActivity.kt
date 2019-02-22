@@ -1,7 +1,9 @@
 package com.pingpong.householdledger
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -19,26 +21,38 @@ import com.pingpong.householdledger.MainActivity.Companion.CalYear
 import com.pingpong.householdledger.MainActivity.Companion.CalendarMonthList
 import com.pingpong.householdledger.MainActivity.Companion.CalendarViewFragmentList
 import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
+import com.pingpong.householdledger.MainActivity.Companion.DATE
 import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
 import com.pingpong.householdledger.MainActivity.Companion.FullList
+import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.MonthAndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
 import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
+import com.pingpong.householdledger.MainActivity.Companion.YEAR
 import kotlinx.android.synthetic.main.activity_add_record.*
 import java.sql.Time
 import java.text.SimpleDateFormat
+import java.time.Year
 import java.util.*
 
 class AddRecordActivity : AppCompatActivity() {
-    var MoneyRecordString = ""
+    private var MoneyRecordString = ""
+    private var Year = Today.get(Calendar.YEAR)
+    private var Month = Today.get(Calendar.MONTH)
+    private var Date = Today.get(Calendar.DATE)
+    private val DATEPICKERCODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_record)
         InitialSetting()
         DateRecordField.setOnClickListener{
-
+            val Intent = Intent(this,DatePickerActivity::class.java)
+            Intent.putExtra(YEAR,Year)
+            Intent.putExtra(MONTH,Month)
+            Intent.putExtra(DATE,Date)
+            startActivityForResult(Intent,DATEPICKERCODE)
         }
         ConfirmBut.setOnClickListener {
             val MoneyString = MoneyRecordField.text.toString().replace(",","")
@@ -68,6 +82,16 @@ class AddRecordActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode==DATEPICKERCODE && resultCode== Activity.RESULT_OK){
+            if(data!=null && data.hasExtra(YEAR) && data.hasExtra(MONTH) && data.hasExtra(DATE)){
+                val date = (data.getIntExtra(MONTH,Month)+1).toString()+"월 "+data.getIntExtra(DATE,Date)+"일"
+                DateRecordField.text = date
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun InitialSetting(){

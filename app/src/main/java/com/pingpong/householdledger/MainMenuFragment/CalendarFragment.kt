@@ -156,8 +156,9 @@ class CalendarFragment : Fragment() {
                         putInt(MONTH, PrevMonth)
                     }
                 }
+                Log.d("Test","전 $PrevYear 년 $PrevMonth 월")
                 CalendarYearList.add(0,PrevYear)
-                CalendarMonthList.add(0,PrevMonth)
+                CalendarMonthList.add(0,PrevMonth-1)
                 CalendarViewFragmentList.add(0,Frags)
                 CalendarViewFragmentList.removeAt(CalendarViewFragmentList.size-1)
                 CalendarMonthList.removeAt(CalendarMonthList.size-1)
@@ -175,9 +176,10 @@ class CalendarFragment : Fragment() {
                 Frags.apply {
                     arguments = Bundle().apply {
                         putInt(YEAR, NextYear)
-                        putInt(MONTH, NextMonth)
+                        putInt(MONTH, NextMonth-1)
                     }
                 }
+                Log.d("Test","다음 $NextYear 년 $NextMonth 월")
                 CalendarYearList.add(NextYear)
                 CalendarMonthList.add(NextMonth)
                 CalendarViewFragmentList.add(Frags)
