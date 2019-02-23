@@ -9,11 +9,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".DatePickerActivity">
+        <activity android:name=".PopUpMenu.SpecificPeriodSettingActivity">
         </activity>
-        <activity android:name=".CalendarPopUpActivity">
+        <activity android:name=".PopUpMenu.DatePickerActivity">
         </activity>
-        <activity android:name=".AddRecordActivity">
+        <activity android:name=".PopUpMenu.CalendarPopUpActivity">
+        </activity>
+        <activity android:name=".PopUpMenu.AddRecordActivity">
         </activity>
         <activity android:name=".TabMenuActivity">
         </activity>

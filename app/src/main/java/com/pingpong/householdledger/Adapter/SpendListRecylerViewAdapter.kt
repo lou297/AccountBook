@@ -47,6 +47,5 @@ class SpendListRecylerViewAdapter (val context : Context, val FullList : ArrayLi
                 DateLinearLayout.addView(SpendListDateView(context,i))
             }
         }
-
     }
 }

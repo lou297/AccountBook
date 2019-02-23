@@ -1,15 +1,14 @@
-package com.pingpong.householdledger
+package com.pingpong.householdledger.PopUpMenu
 
 import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
-import android.widget.TableLayout
 import android.widget.TextView
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
+import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.activity_calendar_pop_up.*
 import java.util.*
 

@@ -74,10 +74,7 @@ class StatisticsFragment : Fragment(){
                     SubGroupMoneyEditText.setSelection(SubGroupMoneyString.length)
                 }
             }
-
         })
-
-
 
     }
 

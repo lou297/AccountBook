@@ -1,8 +1,6 @@
-package com.pingpong.householdledger
+package com.pingpong.householdledger.PopUpMenu
 
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,10 +9,10 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.pingpong.householdledger.Adapter.CalendarViewPagerAdapter
 import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.DataClass.DateInfo
 import com.pingpong.householdledger.DataClass.ExpenseInfo
+import com.pingpong.householdledger.MainActivity
 import com.pingpong.householdledger.MainActivity.Companion.CalDate
 import com.pingpong.householdledger.MainActivity.Companion.CalMonth
 import com.pingpong.householdledger.MainActivity.Companion.CalYear
@@ -30,10 +28,9 @@ import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
 import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
+import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.activity_add_record.*
-import java.sql.Time
 import java.text.SimpleDateFormat
-import java.time.Year
 import java.util.*
 
 class AddRecordActivity : AppCompatActivity() {
@@ -48,7 +45,7 @@ class AddRecordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_record)
         InitialSetting()
         DateRecordField.setOnClickListener{
-            val Intent = Intent(this,DatePickerActivity::class.java)
+            val Intent = Intent(this, DatePickerActivity::class.java)
             Intent.putExtra(YEAR,Year)
             Intent.putExtra(MONTH,Month)
             Intent.putExtra(DATE,Date)
@@ -95,7 +92,8 @@ class AddRecordActivity : AppCompatActivity() {
     }
 
     private fun InitialSetting(){
-        ClassificationSpinner.adapter = ArrayAdapter(this,R.layout.support_simple_spinner_dropdown_item,StatisticsAdapterList)
+        ClassificationSpinner.adapter = ArrayAdapter(this,
+            R.layout.support_simple_spinner_dropdown_item,StatisticsAdapterList)
         val calendar = Calendar.getInstance()
         DateRecordField.text = SimpleDateFormat(MonthAndDate).format(calendar.time)
     }
