@@ -4,53 +4,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <RadioGroup android:layout_width="match_parent" android:layout_height="wrap_content">
-        <RadioButton
-                android:id="@+id/ThisMonthRadioButton"
-                android:text="이번 달"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RadioButton
-                android:id="@+id/ThirtyDaysRadioButton"
-                android:text="30일"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RadioButton
-                android:id="@+id/FifteenDaysRadioButton"
-                android:text="15일"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RadioButton
-                android:id="@+id/OneWeekRadioButton"
-                android:text="1주일"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RadioButton
-                android:id="@+id/WriteRadioButton"
-                android:text="기준일 직접 기입"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        <RadioButton
-                android:id="@+id/SelectRadioButton"
-                android:text="기간 직접 선택"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-    </RadioGroup>
-    <LinearLayout
+    <FrameLayout
+            android:id="@+id/PeriodSettingFrameLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-        <Button
-                android:text="확인"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <Button
-                android:text="취소"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
+            android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 </LinearLayout>

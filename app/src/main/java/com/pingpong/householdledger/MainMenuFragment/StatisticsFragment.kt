@@ -1,6 +1,7 @@
 package com.pingpong.householdledger.MainMenuFragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.support.v4.app.Fragment
@@ -15,19 +16,28 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.pingpong.householdledger.DataClass.StatisticsInfo
+import com.pingpong.householdledger.MainActivity
 import com.pingpong.householdledger.MainActivity.Companion.MoneyDecimalFormat
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
+import com.pingpong.householdledger.MainActivity.Companion.StatisticsEndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsList
+import com.pingpong.householdledger.MainActivity.Companion.StatisticsStartDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsTotalMoney
+import com.pingpong.householdledger.MainActivity.Companion.Today
+import com.pingpong.householdledger.PopUpMenu.SpecificPeriodSettingActivity
 import com.pingpong.householdledger.R
 import com.pingpong.householdledger.ReturnView.CompletedStatisticsView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_frag_statistics.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class StatisticsFragment : Fragment(){
     var SubGroupEditText = GONE
     var TotalMoneyText = VISIBLE
     var TotalMoneyString = ""
     var SubGroupMoneyString =""
+    private val PERIODSETTINGCODE=1002
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //뷰 미리 생성
@@ -41,6 +51,11 @@ class StatisticsFragment : Fragment(){
         }
         EditTotalMoneyBut.setOnClickListener {
             EditTotalMoney()
+        }
+
+        PeriodTextView.setOnClickListener {
+            val PeriodSetting = Intent(context,SpecificPeriodSettingActivity::class.java)
+            startActivityForResult(PeriodSetting,PERIODSETTINGCODE)
         }
 
         TotalMoneyEditText.addTextChangedListener(object : TextWatcher{
@@ -95,6 +110,10 @@ class StatisticsFragment : Fragment(){
 
     private fun SettingStatisticsView(){
         TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
+
+        StatisticsStartDate.set(Today.get(Calendar.YEAR), Today.get(Calendar.MONTH),1)
+        val DF = SimpleDateFormat(MainActivity.MonthAndDate)
+        PeriodTextView.text = DF.format(MainActivity.StatisticsStartDate.time) + " ~ " + DF.format(StatisticsEndDate.time)
         StatisticsGroupLayout.removeAllViews()
 
         for(i in StatisticsList){
