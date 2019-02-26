@@ -6,8 +6,18 @@
     <CalendarView
             android:id="@+id/PeriodSettingCalendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
     </CalendarView>
+    <TextView
+            android:id="@+id/CalendarPeriodTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"/>
+    <Button
+            android:layout_gravity="center"
+            android:id="@+id/PeriodCalendarConfirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

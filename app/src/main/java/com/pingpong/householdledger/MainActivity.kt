@@ -86,6 +86,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun SettingMainView(){
+
+        StatisticsStartDate.set(CalYear(Today), CalMonth(Today),1)
         val DF = SimpleDateFormat(MonthAndDate)
         MainViewDateText.text = DF.format(Today.time)
         MainPageTotalMoneyTextView.text = StatisticsTotalMoney.toString()

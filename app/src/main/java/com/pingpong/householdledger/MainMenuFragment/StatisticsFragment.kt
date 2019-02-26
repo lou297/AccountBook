@@ -111,7 +111,6 @@ class StatisticsFragment : Fragment(){
     private fun SettingStatisticsView(){
         TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
 
-        StatisticsStartDate.set(Today.get(Calendar.YEAR), Today.get(Calendar.MONTH),1)
         val DF = SimpleDateFormat(MainActivity.MonthAndDate)
         PeriodTextView.text = DF.format(MainActivity.StatisticsStartDate.time) + " ~ " + DF.format(StatisticsEndDate.time)
         StatisticsGroupLayout.removeAllViews()
