@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
@@ -140,7 +141,7 @@ class AddRecordActivity : AppCompatActivity() {
         }
 
         for(i in 0 until TotalCalendarFragmentNum){
-            if(CalendarYearList[i]==year.toInt()&& CalendarMonthList[i]==month.toInt()){
+            if(CalendarYearList[i]==year.toInt()&& CalendarMonthList[i]-1==month.toInt()){
                 val Frags = CalendarViewFragment()
                 Frags.apply {
                     arguments = Bundle().apply {
@@ -148,7 +149,9 @@ class AddRecordActivity : AppCompatActivity() {
                         putInt(MainActivity.MONTH,month.toInt())
                     }
                 }
+                Log.d("test", CalendarViewFragmentList.toString())
                 CalendarViewFragmentList[i]=Frags
+                Log.d("test", CalendarViewFragmentList.toString())
                 break;
             }
         }

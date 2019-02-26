@@ -18,12 +18,17 @@ import com.pingpong.householdledger.MainMenuFragment.CalendarFragment
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_dynamical_view.*
 import kotlinx.android.synthetic.main.main_frag_calendar.*
+import kotlinx.android.synthetic.main.main_frag_statistics.view.*
 import java.util.*
 
 class CalendarViewFragment :Fragment() {
+    private var MonthIncome = 0
+    private var MonthSpend = 0
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         val YEAR = arguments!!.getInt(YEAR)
         val MONTH = arguments!!.getInt(MONTH)
+        MonthIncome = 0
+        MonthSpend = 0
         CreateMonthViewDynamically(YEAR,MONTH)
         //사실상 null이 들어오면 무조건 문제가 생긴다.
         // ?:를 통해 처리해 줄 수도 있지만 이렇게 해주어도 정상적인 동작이 아니다.
@@ -62,6 +67,8 @@ class CalendarViewFragment :Fragment() {
                 for(j in FullList){
                     if(j.DateInLength8==IntDateInLength8){
                         DateInfoList.add(DateInfo(DateInLength8 = IntDateInLength8, TimeInMilli =  calendar.timeInMillis, Spend = j.Spend, Total = j.Total, ExpenseList = j.ExpenseList))
+                        MonthIncome += j.Income
+                        MonthSpend += j.Spend
                         break;
                     }
                 }
@@ -73,5 +80,9 @@ class CalendarViewFragment :Fragment() {
 
         CalendarMonthRecyclerView.layoutManager = GridLayoutManager(context, 7)
         CalendarMonthRecyclerView.adapter = CalendarDateAdapter(this.context!!,DateInfoList)
+
+        CalendarIncomeTextView.text = MonthIncome.toString()
+        CalendarSpendTextView.text = MonthSpend.toString()
+        CalendarTotalTextView.text = (MonthIncome - MonthSpend).toString()
     }
 }

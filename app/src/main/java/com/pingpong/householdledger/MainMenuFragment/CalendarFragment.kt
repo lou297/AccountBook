@@ -59,7 +59,7 @@ class CalendarFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("test","resume")
+        Log.d("test","CalendarFragmentResume")
         fragmentManager!!.beginTransaction().replace(R.id.CalendarViewFrame,CalendarViewFragmentList[TotalCalendarFragmentNum/2]).commit()
         SetCalendarYearAndMonth(TotalCalendarFragmentNum/2)
         ChangeCalendarSynchronization = 1
@@ -146,9 +146,9 @@ class CalendarFragment : Fragment() {
                         putInt(MONTH, PrevMonth)
                     }
                 }
-                Log.d("Test","전 $PrevYear 년 $PrevMonth 월")
+//                Log.d("Test","전 $PrevYear 년 $PrevMonth 월")
                 CalendarYearList.add(0,PrevYear)
-                CalendarMonthList.add(0,PrevMonth-1)
+                CalendarMonthList.add(0,PrevMonth)
                 CalendarViewFragmentList.add(0,Frags)
                 CalendarViewFragmentList.removeAt(CalendarViewFragmentList.size-1)
                 CalendarMonthList.removeAt(CalendarMonthList.size-1)
@@ -169,7 +169,7 @@ class CalendarFragment : Fragment() {
                         putInt(MONTH, NextMonth-1)
                     }
                 }
-                Log.d("Test","다음 $NextYear 년 $NextMonth 월")
+//                Log.d("Test","다음 $NextYear 년 $NextMonth 월")
                 CalendarYearList.add(NextYear)
                 CalendarMonthList.add(NextMonth)
                 CalendarViewFragmentList.add(Frags)
@@ -181,6 +181,7 @@ class CalendarFragment : Fragment() {
         ChangeCalendarSynchronization =1
         Log.d("test", CalendarYearList.toString())
         Log.d("test", CalendarMonthList.toString())
+        Log.d("test", CalendarViewFragmentList.toString())
     }
 
 

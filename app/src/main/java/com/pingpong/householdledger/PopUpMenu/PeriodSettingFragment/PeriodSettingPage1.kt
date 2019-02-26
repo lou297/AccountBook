@@ -25,6 +25,10 @@ class PeriodSettingPage1 : Fragment() {
         PeriodSettingConfirmButton.setOnClickListener {
             SettingPeriod(PeriodRadioGroup.checkedRadioButtonId)
         }
+
+        PeriodSettingCancelButton.setOnClickListener {
+            activity!!.finish()
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
