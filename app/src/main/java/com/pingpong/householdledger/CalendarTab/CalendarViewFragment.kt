@@ -81,6 +81,7 @@ class CalendarViewFragment :Fragment() {
         CalendarMonthRecyclerView.layoutManager = GridLayoutManager(context, 7)
         CalendarMonthRecyclerView.adapter = CalendarDateAdapter(this.context!!,DateInfoList)
 
+
         CalendarIncomeTextView.text = MonthIncome.toString()
         CalendarSpendTextView.text = MonthSpend.toString()
         CalendarTotalTextView.text = (MonthIncome - MonthSpend).toString()

@@ -36,9 +36,10 @@ import java.util.*
 
 class AddRecordActivity : AppCompatActivity() {
     private var MoneyRecordString = ""
-    private var Year = Today.get(Calendar.YEAR)
-    private var Month = Today.get(Calendar.MONTH)
-    private var Date = Today.get(Calendar.DATE)
+    private val SettingDate = Calendar.getInstance()
+//    private var Year = Today.get(Calendar.YEAR)
+//    private var Month = Today.get(Calendar.MONTH)
+//    private var Date = Today.get(Calendar.DATE)
     private val DATEPICKERCODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +48,9 @@ class AddRecordActivity : AppCompatActivity() {
         InitialSetting()
         DateRecordField.setOnClickListener{
             val Intent = Intent(this, DatePickerActivity::class.java)
-            Intent.putExtra(YEAR,Year)
-            Intent.putExtra(MONTH,Month)
-            Intent.putExtra(DATE,Date)
+            Intent.putExtra(YEAR, CalYear(SettingDate))
+            Intent.putExtra(MONTH, CalMonth(SettingDate))
+            Intent.putExtra(DATE, CalDate(SettingDate))
             startActivityForResult(Intent,DATEPICKERCODE)
         }
         ConfirmBut.setOnClickListener {
@@ -85,8 +86,14 @@ class AddRecordActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(requestCode==DATEPICKERCODE && resultCode== Activity.RESULT_OK){
             if(data!=null && data.hasExtra(YEAR) && data.hasExtra(MONTH) && data.hasExtra(DATE)){
-                val date = (data.getIntExtra(MONTH,Month)+1).toString()+"월 "+data.getIntExtra(DATE,Date)+"일"
-                DateRecordField.text = date
+                val year = data.getIntExtra(YEAR,CalYear(SettingDate))
+                val month = data.getIntExtra(MONTH,CalMonth(SettingDate))
+                val date = data.getIntExtra(DATE,CalDate(SettingDate))
+
+                SettingDate.set(year,month,date)
+
+                val Stringdate = (month+1).toString()+"월 "+date+"일"
+                DateRecordField.text = Stringdate
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -95,20 +102,29 @@ class AddRecordActivity : AppCompatActivity() {
     private fun InitialSetting(){
         ClassificationSpinner.adapter = ArrayAdapter(this,
             R.layout.support_simple_spinner_dropdown_item,StatisticsAdapterList)
-        val calendar = Calendar.getInstance()
-        DateRecordField.text = SimpleDateFormat(MonthAndDate).format(calendar.time)
+        var year : Int = CalYear(SettingDate)
+        var month : Int = CalMonth(SettingDate)
+        var date : Int = CalDate(SettingDate)
+        if(intent.hasExtra(YEAR)&&intent.hasExtra(MONTH)&&intent.hasExtra(DATE)){
+            year = intent.getIntExtra(YEAR,year)
+            month = intent.getIntExtra(MONTH,month)
+            date = intent.getIntExtra(DATE,date)
+            SettingDate.set(year,month,date)
+        }
+        DateRecordField.text = SimpleDateFormat(MonthAndDate).format(SettingDate.time)
     }
 
     private fun AddSpendList(){
         Today = Calendar.getInstance()
-        val year : String = CalYear(Today).toString()
-        var month : String = CalMonth(Today).toString()
-        var date : String =  CalDate(Today).toString()
-        if(CalMonth(Today)<10)
-            month = "0"+CalMonth(Today)
-        if(CalDate(Today)<10)
-            date =  "0"+CalDate(Today)
+        val year : String = CalYear(SettingDate).toString()
+        var month : String = CalMonth(SettingDate).toString()
+        var date : String =  CalDate(SettingDate).toString()
+        if(CalMonth(SettingDate)<10)
+            month = "0"+CalMonth(SettingDate)
+        if(CalDate(SettingDate)<10)
+            date =  "0"+CalDate(SettingDate)
         val TimeInLength8 = Integer.parseInt(year + month + date)
+        Log.d("test22", TimeInLength8.toString())
 //        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
         //이렇게도 표현 가능하다.
         val TimeinMillis = Today.timeInMillis

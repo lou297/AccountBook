@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import com.pingpong.householdledger.Adapter.MainPagerAdapter
+import com.pingpong.householdledger.MainActivity.Companion.CalDate
+import com.pingpong.householdledger.MainActivity.Companion.CalMonth
+import com.pingpong.householdledger.MainActivity.Companion.CalYear
 import com.pingpong.householdledger.MainActivity.Companion.PAGE
+import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.PopUpMenu.AddRecordActivity
 import kotlinx.android.synthetic.main.activity_tab_menu.*
 
@@ -16,7 +20,11 @@ class TabMenuActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tab_menu)
         CreateTabViewPager()
         GoToAddRecordBut.setOnClickListener{
-            startActivity(Intent(this, AddRecordActivity::class.java))
+            val intent = Intent(this,AddRecordActivity::class.java)
+            intent.putExtra(MainActivity.YEAR, CalYear(Today))
+            intent.putExtra(MainActivity.MONTH, CalMonth(Today))
+            intent.putExtra(MainActivity.DATE, CalDate(Today))
+            startActivity(intent)
         }
     }
 

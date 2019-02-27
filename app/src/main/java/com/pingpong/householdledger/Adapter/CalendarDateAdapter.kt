@@ -2,6 +2,7 @@ package com.pingpong.householdledger.Adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +15,14 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.MainActivity
+import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
+import com.pingpong.householdledger.MainActivity.Companion.DATE
 import com.pingpong.householdledger.MainActivity.Companion.DateInfoMap
+import com.pingpong.householdledger.MainActivity.Companion.MONTH
+import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
+import com.pingpong.householdledger.MainActivity.Companion.YEAR
+import com.pingpong.householdledger.PopUpMenu.AddRecordActivity
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_one_day_view.view.*
 import java.util.*
@@ -36,6 +44,7 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
     }
 
     inner class Holder(view : View) : RecyclerView.ViewHolder(view){
+        val Layout = view.DateLinearLayout
         val Date = view.OneDay_Date
         val Holiday = view.OneDay_Holiday
         val Income = view.OneDay_Income
@@ -60,6 +69,15 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
                     0 -> Date.setTextColor(ContextCompat.getColor(context,R.color.red))
                     else -> Date.setTextColor(ContextCompat.getColor(context,R.color.black))
                 }
+
+                Layout.setOnClickListener {
+                    val intent = Intent(context,AddRecordActivity::class.java)
+                    intent.putExtra(YEAR, CalendarYearList[TotalCalendarFragmentNum/2])
+                    intent.putExtra(MONTH, MainActivity.CalendarMonthList[TotalCalendarFragmentNum/2]-1)
+                    intent.putExtra(DATE,date)
+
+                    context.startActivity(intent)
+                }
             }
 
             if(dateInfo.ExpenseList.size!=0){
@@ -67,6 +85,9 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
                 Spend.text = dateInfo.Spend.toString()
                 total.text = dateInfo.Total.toString()
             }
+
+
+
 
 
 
