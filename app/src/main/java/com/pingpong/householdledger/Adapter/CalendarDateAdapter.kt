@@ -23,6 +23,7 @@ import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
 import com.pingpong.householdledger.PopUpMenu.AddRecordActivity
+import com.pingpong.householdledger.PopUpMenu.SpecificDayInfoActivity
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.calendar_one_day_view.view.*
 import java.util.*
@@ -71,7 +72,7 @@ class CalendarDateAdapter (val context : Context, val DateInfoList : ArrayList<D
                 }
 
                 Layout.setOnClickListener {
-                    val intent = Intent(context,AddRecordActivity::class.java)
+                    val intent = Intent(context,SpecificDayInfoActivity::class.java)
                     intent.putExtra(YEAR, CalendarYearList[TotalCalendarFragmentNum/2])
                     intent.putExtra(MONTH, MainActivity.CalendarMonthList[TotalCalendarFragmentNum/2]-1)
                     intent.putExtra(DATE,date)

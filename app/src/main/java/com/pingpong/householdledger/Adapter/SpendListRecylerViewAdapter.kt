@@ -15,6 +15,7 @@ import com.pingpong.householdledger.ReturnView.SpendListDateView
 import kotlinx.android.synthetic.main.list_one_day_view.view.*
 import kotlinx.android.synthetic.main.list_one_info_view.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SpendListRecylerViewAdapter (val context : Context, val FullList : ArrayList<DateInfo>): RecyclerView.Adapter<SpendListRecylerViewAdapter.Holder>() {
 
@@ -38,13 +39,17 @@ class SpendListRecylerViewAdapter (val context : Context, val FullList : ArrayLi
         val Spend =view.OneDayTotalSpend
         val Money = view.OneDayTotalMoney
 
+//        val DynamicalList = ArrayList<SpendListDateView>()
+        //각각의 지출내역 뷰를 담은 리스트
         fun bind( Info : DateInfo, position : Int){
             Time.text = Info.DateInLength8.toString()
             Income.text = Info.Income.toString()
             Spend.text = Info.Spend.toString()
             Money.text = Info.Total.toString()
             for(i in Info.ExpenseList){
-                DateLinearLayout.addView(SpendListDateView(context,i))
+                val OneDateView = SpendListDateView(context,i)
+                DateLinearLayout.addView(OneDateView)
+//                DynamicalList.add(OneDateView)
             }
         }
     }
