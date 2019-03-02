@@ -13,7 +13,8 @@ class SpendListDateView(context : Context, info : ExpenseInfo) : LinearLayout(co
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.list_one_info_view,this,true)
-        InfoTime.text = info.DateInLength8.toString()
+        InfoTimeInMilis.text = info.TimeInMilli.toString()
+        InfoDate.text = info.DateInLength8.toString()
         InfoClassification.text = info.Classification
         InfoAmount.text = info.Amount.toString()
         InfoPayMent.text= info.Payment

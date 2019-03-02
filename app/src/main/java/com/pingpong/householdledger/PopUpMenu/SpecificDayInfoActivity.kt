@@ -3,6 +3,10 @@ package com.pingpong.householdledger.PopUpMenu
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
+import com.pingpong.householdledger.DataClass.DateInfo
+import com.pingpong.householdledger.DataClass.ExpenseInfo
 import com.pingpong.householdledger.MainActivity
 import com.pingpong.householdledger.MainActivity.Companion.CalDate
 import com.pingpong.householdledger.MainActivity.Companion.CalMonth
@@ -31,10 +35,10 @@ class SpecificDayInfoActivity : AppCompatActivity() {
         LoadSpecificDayInfo(GetDateInString())
 
         SpecificDayAddRecordButton.setOnClickListener {
-            val intent = Intent(this,AddRecordActivity::class.java)
+            val intent = Intent(this, AddRecordActivity::class.java)
             intent.putExtra(YEAR, year)
             intent.putExtra(MONTH, month)
-            intent.putExtra(DATE,date)
+            intent.putExtra(DATE, date)
 
             startActivity(intent)
         }
@@ -46,23 +50,49 @@ class SpecificDayInfoActivity : AppCompatActivity() {
         LoadSpecificDayInfo(dateIn8Length)
     }
 
-    private fun LoadSpecificDayInfo(Date : Int) {
-        if(DateInfoMap.containsKey(Date)){
-            for(i in FullList){
-                if(i.DateInLength8==Date){
-                    for(ExpenseInfo in i.ExpenseList){
-                        val OneInfo = SpendListDateView(this,ExpenseInfo)
-                        SpecificDayInfoList.add(OneInfo)
-                        DayInfoLayout.addView(OneInfo)
+    private fun LoadSpecificDayInfo(Date: Int) {
+        if (DateInfoMap.containsKey(Date)) {
+            try {
+                val dateInfo : DateInfo = FullList.find { it.DateInLength8 == Date }!!
+                for(expenseInfo in dateInfo.ExpenseList){
+                    val OneInfo = SpendListDateView(this, expenseInfo)
+                    SpecificDayInfoList.add(OneInfo)
+                    DayInfoLayout.addView(OneInfo)
+
+                    OneInfo.setOnClickListener {
+                        removeOneInfo(Date,dateInfo,expenseInfo)
                     }
-                    return
                 }
+
+            } catch (e: Exception){
+                Log.d("testWrongList",e.toString())
             }
-        } else
-            return
+
+
+
+        }
     }
 
-    private fun GetDateInString() : Int {
+    private fun removeOneInfo(Date : Int, dateInfo : DateInfo, expenseInfo: ExpenseInfo){
+        Log.d("test22FullList", FullList.toString())
+        Log.d("test22InfoMap", DateInfoMap.toString())
+        if (dateInfo.ExpenseList.size == 1) {
+            FullList.remove(dateInfo)
+            DateInfoMap.remove(Date)
+        } else {
+            dateInfo.ExpenseList.remove(expenseInfo)
+            dateInfo.Spend -= expenseInfo.Amount
+            dateInfo.Total -= expenseInfo.Amount
+        }
+        Log.d("test33FullList", FullList.toString())
+        Log.d("test33InfoMap", DateInfoMap.toString())
+        DayInfoLayout.removeAllViews()
+        LoadSpecificDayInfo(Date)
+
+        LoadNewCalendarView()
+    }
+
+    private fun GetDateInString(): Int {
         year = if (intent.hasExtra(YEAR))
             intent.getIntExtra(YEAR, CalYear(Today))
         else
@@ -87,4 +117,24 @@ class SpecificDayInfoActivity : AppCompatActivity() {
         dateIn8Length = (year.toString() + monthString + dateString).toInt()
         return dateIn8Length
     }
+
+    private fun LoadNewCalendarView(){
+        for(i in 0 until MainActivity.TotalCalendarFragmentNum){
+            if(MainActivity.CalendarYearList[i]==year&& MainActivity.CalendarMonthList[i]-1==month){
+                val Frags = CalendarViewFragment()
+                Frags.apply {
+                    arguments = Bundle().apply {
+                        putInt(MainActivity.YEAR,year)
+                        putInt(MainActivity.MONTH,month)
+                    }
+                }
+                Log.d("test", MainActivity.CalendarViewFragmentList.toString())
+                MainActivity.CalendarViewFragmentList[i]=Frags
+                Log.d("test", MainActivity.CalendarViewFragmentList.toString())
+                break;
+            }
+        }
+    }
+
+
 }
