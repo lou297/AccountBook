@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.list_one_info_view.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SpendListRecylerViewAdapter (val context : Context, val FullList : ArrayList<DateInfo>): RecyclerView.Adapter<SpendListRecylerViewAdapter.Holder>() {
+class SpendListRecylerViewAdapter (val context : Context, val FullList : List<DateInfo>): RecyclerView.Adapter<SpendListRecylerViewAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): Holder {
         return Holder(LayoutInflater.from(context).inflate(R.layout.list_one_day_view,parent,false))

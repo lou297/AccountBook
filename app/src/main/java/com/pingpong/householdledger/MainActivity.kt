@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         var CalendarViewFragmentList : ArrayList<Fragment> = ArrayList()
         //달력 목록
         val FullList : ArrayList<DateInfo> = ArrayList()
+        var ViewList : List<DateInfo> = mutableListOf()
         val DateInfoMap : HashMap<Int,Int> = HashMap();
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
@@ -102,6 +103,30 @@ class MainActivity : AppCompatActivity() {
         val ViewPagerIntent = Intent(this,TabMenuActivity::class.java)
         ViewPagerIntent.putExtra(PAGE, Page)
         startActivity(ViewPagerIntent)
+    }
+
+    fun ArrangeList(){
+        val StartDate = Get8LengthDate(StatisticsStartDate)
+        val EndDate = Get8LengthDate(StatisticsEndDate)
+
+        ViewList = FullList.filter { it.DateInLength8>=StartDate && it.DateInLength8<= EndDate }
+        ViewList.sortedBy { it.DateInLength8 }
+    }
+    private fun Get8LengthDate(calendar : Calendar) : Int{
+        var tempString : String
+        tempString = CalYear(calendar).toString()
+        if(CalMonth(calendar)>=10)
+            tempString+= CalMonth(calendar)
+        else
+            tempString+= ("0"+ CalMonth(calendar))
+
+        if(CalDate(calendar)>=10)
+            tempString+= CalDate(calendar)
+        else
+            tempString+= ("0"+ CalDate(calendar))
+
+        return tempString.toInt()
+
     }
 
 

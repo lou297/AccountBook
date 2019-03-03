@@ -12,7 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.pingpong.householdledger.Adapter.SpendListRecylerViewAdapter
+import com.pingpong.householdledger.MainActivity
 import com.pingpong.householdledger.MainActivity.Companion.FullList
+import com.pingpong.householdledger.MainActivity.Companion.ViewList
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.main_frag_spend_list.*
 
@@ -30,14 +32,16 @@ class SpendListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val adapter = SpendListRecylerViewAdapter(context!!,FullList)
+        MainActivity().ArrangeList()
+        val adapter = SpendListRecylerViewAdapter(context!!, ViewList)
         SpendListRecylerView.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
     private fun CallList(){
+        MainActivity().ArrangeList()
         SpendListRecylerView.layoutManager = LinearLayoutManager(context)
-        SpendListRecylerView.adapter = SpendListRecylerViewAdapter(context!!,FullList)
+        SpendListRecylerView.adapter = SpendListRecylerViewAdapter(context!!,ViewList)
 
     }
 }
