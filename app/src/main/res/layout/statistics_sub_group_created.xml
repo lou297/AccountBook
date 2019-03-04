@@ -9,7 +9,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"/>
     <TextView
-            android:id="@+id/UsedMoney"
+            android:id="@+id/SubGroupDrawDownMoney"
             android:text="  : 0"
             android:textSize="24sp"
             android:layout_width="wrap_content"

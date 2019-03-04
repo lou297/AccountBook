@@ -26,6 +26,7 @@ import com.pingpong.householdledger.MainActivity.Companion.FullList
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
 import com.pingpong.householdledger.MainActivity.Companion.MonthAndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
+import com.pingpong.householdledger.MainActivity.Companion.StatisticsList
 import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
@@ -45,7 +46,10 @@ class AddRecordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_record)
+
         InitialSetting()
+
+        //내역 추가 일자 변경시도
         DateRecordField.setOnClickListener{
             val Intent = Intent(this, DatePickerActivity::class.java)
             Intent.putExtra(YEAR, CalYear(SettingDate))
@@ -53,6 +57,8 @@ class AddRecordActivity : AppCompatActivity() {
             Intent.putExtra(DATE, CalDate(SettingDate))
             startActivityForResult(Intent,DATEPICKERCODE)
         }
+
+        //추가 버튼 클릭시
         ConfirmBut.setOnClickListener {
             val MoneyString = MoneyRecordField.text.toString().replace(",","")
             when{
@@ -61,10 +67,13 @@ class AddRecordActivity : AppCompatActivity() {
             }
 
         }
+
+        //취소 버튼 클릭 시
         CancelBut.setOnClickListener {
             finish()
         }
 
+        //금액 입력란에서 자동으로 ','추가 기능
         MoneyRecordField.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
             }
@@ -124,15 +133,16 @@ class AddRecordActivity : AppCompatActivity() {
         if(CalDate(SettingDate)<10)
             date =  "0"+CalDate(SettingDate)
         val TimeInLength8 = Integer.parseInt(year + month + date)
-        Log.d("test22", TimeInLength8.toString())
-//        val test : Int = (CalYear(Today).toString() + CalMonth(Today).toString() + CalDate(Today).toString()).toInt()
-        //이렇게도 표현 가능하다.
+//        Log.d("test22", TimeInLength8.toString())
+
         val TimeinMillis = Today.timeInMillis
 
         val Classify : String? = when(ClassificationSpinner.selectedItemPosition) {
             0 -> null
             else ->  ClassificationSpinner.selectedItem.toString()
         }
+
+        val ClassifyNum : Int = ClassificationSpinner.selectedItemPosition
 
         val Money = MoneyRecordField.text.toString().replace(",","").toInt()
 
@@ -142,8 +152,11 @@ class AddRecordActivity : AppCompatActivity() {
 
         val Expense = ExpenseInfo(TimeInLength8, TimeinMillis,Classify,Money,PaymentMethod,Content)
 
+
         if(DateInfoMap.containsKey(TimeInLength8)){
+            //해당 일에 이미 추가된 내역이 있다면
             for(i in FullList.indices){
+                //전체 리스트에서 해당일을 찾아 해당일의 내역에 추가해준다.
                 if(FullList[i].DateInLength8==TimeInLength8){
                     FullList[i].Spend+=Money
                     FullList[i].Total = FullList[i].Income - FullList[i].Spend
@@ -152,9 +165,15 @@ class AddRecordActivity : AppCompatActivity() {
                 }
             }
         } else {
+            //해당일에 추가된 내역이 없다면
             FullList.add(DateInfo(TimeInLength8,TimeinMillis,Spend = Money, Total = -Money , ExpenseList = arrayListOf<ExpenseInfo>(Expense)))
             DateInfoMap.put(TimeInLength8,1)
         }
+
+        if(ClassifyNum!=0){
+            StatisticsList[ClassifyNum-1].DrawDown += Money
+        }
+
 
         for(i in 0 until TotalCalendarFragmentNum){
             if(CalendarYearList[i]==year.toInt()&& CalendarMonthList[i]-1==month.toInt()){

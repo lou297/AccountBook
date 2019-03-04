@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         MainViewDateText.text = DF.format(Today.time)
         MainPageTotalMoneyTextView.text = StatisticsTotalMoney.toString()
         for(i in StatisticsList){
-            val GroupView = CompletedStatisticsView(applicationContext,i.ContentName,i.Total.toString())
+            val GroupView = CompletedStatisticsView(applicationContext,i.ContentName,i.Total, i.DrawDown)
             MainPageStatisticsGroupLayout.addView(GroupView)
         }
     }

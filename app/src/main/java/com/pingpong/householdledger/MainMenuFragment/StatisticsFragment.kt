@@ -19,6 +19,7 @@ import com.pingpong.householdledger.DataClass.StatisticsInfo
 import com.pingpong.householdledger.MainActivity
 import com.pingpong.householdledger.MainActivity.Companion.MoneyDecimalFormat
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsAdapterList
+import com.pingpong.householdledger.MainActivity.Companion.StatisticsDrawDown
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsEndDate
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsList
 import com.pingpong.householdledger.MainActivity.Companion.StatisticsStartDate
@@ -106,18 +107,22 @@ class StatisticsFragment : Fragment(){
 
 
     private fun SettingStatisticsView(){
+        //통계 사용액, 총액 저장
         StatisticsTotalMoney = 0
+        StatisticsDrawDown = 0
         StatisticsList.forEach {
+            StatisticsDrawDown += it.DrawDown
             StatisticsTotalMoney += it.Total
         }
         TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
+        DrawDownMoneyTextView.setText(StatisticsDrawDown.toString())
 
         val DF = SimpleDateFormat(MainActivity.MonthAndDate)
         PeriodTextView.text = DF.format(MainActivity.StatisticsStartDate.time) + " ~ " + DF.format(StatisticsEndDate.time)
         StatisticsGroupLayout.removeAllViews()
 
         for(i in StatisticsList){
-            CreateCompletedView(CompletedStatisticsView(context!!,i.ContentName,i.Total.toString()))
+            CreateCompletedView(CompletedStatisticsView(context!!,i.ContentName,i.Total ,i.DrawDown))
         }
     }
 
@@ -149,7 +154,7 @@ class StatisticsFragment : Fragment(){
         var Content = StatisticsInfo(ContentName = content, Total = IntTotal)
         StatisticsList.add(Content)
         StatisticsAdapterList.add(content)
-        CreateCompletedView(CompletedStatisticsView(context!!,content,total))
+        CreateCompletedView(CompletedStatisticsView(context!!,content,IntTotal, 0))
 
         StatisticsTotalMoney += IntTotal
         TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
