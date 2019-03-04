@@ -15,7 +15,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:orientation="horizontal"
-                android:gravity="right">
+                android:gravity="center">
             <TextView
                     android:text="2월"
                     android:id="@+id/PeriodTextView"
@@ -43,16 +43,6 @@
                     android:layout_height="wrap_content"
                     android:maxLength="12"
                     android:visibility="gone" android:inputType="number"/>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                    android:layout_weight="3"
-                android:gravity="left">
-            <Button
-                    android:id="@+id/EditTotalMoneyBut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"/>
         </LinearLayout>
 
     </LinearLayout>

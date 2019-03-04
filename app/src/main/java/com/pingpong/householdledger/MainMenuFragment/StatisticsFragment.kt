@@ -49,9 +49,6 @@ class StatisticsFragment : Fragment(){
         AddGroupBut.setOnClickListener {
             AddGroupFun()
         }
-        EditTotalMoneyBut.setOnClickListener {
-            EditTotalMoney()
-        }
 
         PeriodTextView.setOnClickListener {
             val PeriodSetting = Intent(context,SpecificPeriodSettingActivity::class.java)
@@ -109,6 +106,10 @@ class StatisticsFragment : Fragment(){
 
 
     private fun SettingStatisticsView(){
+        StatisticsTotalMoney = 0
+        StatisticsList.forEach {
+            StatisticsTotalMoney += it.Total
+        }
         TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
 
         val DF = SimpleDateFormat(MainActivity.MonthAndDate)
@@ -149,34 +150,37 @@ class StatisticsFragment : Fragment(){
         StatisticsList.add(Content)
         StatisticsAdapterList.add(content)
         CreateCompletedView(CompletedStatisticsView(context!!,content,total))
-    }
 
-    private fun EditTotalMoney(){
-        when(TotalMoneyText){
-            VISIBLE -> {
-                TotalMoneyText = GONE
-                TotalMoneyTextView.visibility = GONE
-                TotalMoneyEditText.visibility = VISIBLE
-            }
-            GONE -> {
-                val MoneyText = TotalMoneyEditText.text.toString().replace(",","")
-                if(MoneyText.length<4){
-                    Toast.makeText(context,"1,000원 이상을 입력해주세요.",Toast.LENGTH_SHORT).show()
-                } else{
-                    try {
-                        StatisticsTotalMoney = MoneyText.toInt()
-                    } catch (e:Exception){
-                        Toast.makeText(context,"올바른 숫자를 입력해 주세요.",Toast.LENGTH_SHORT)
-                    }
-                    TotalMoneyText = VISIBLE
-                    TotalMoneyTextView.text = MoneyText
-                    TotalMoneyEditText.visibility = GONE
-                    TotalMoneyTextView.visibility = VISIBLE
-                }
-
-            }
-        }
+        StatisticsTotalMoney += IntTotal
+        TotalMoneyTextView.setText(StatisticsTotalMoney.toString())
     }
+//
+//    private fun EditTotalMoney(){
+//        when(TotalMoneyText){
+//            VISIBLE -> {
+//                TotalMoneyText = GONE
+//                TotalMoneyTextView.visibility = GONE
+//                TotalMoneyEditText.visibility = VISIBLE
+//            }
+//            GONE -> {
+//                val MoneyText = TotalMoneyEditText.text.toString().replace(",","")
+//                if(MoneyText.length<4){
+//                    Toast.makeText(context,"1,000원 이상을 입력해주세요.",Toast.LENGTH_SHORT).show()
+//                } else{
+//                    try {
+//                        StatisticsTotalMoney = MoneyText.toInt()
+//                    } catch (e:Exception){
+//                        Toast.makeText(context,"올바른 숫자를 입력해 주세요.",Toast.LENGTH_SHORT)
+//                    }
+//                    TotalMoneyText = VISIBLE
+//                    TotalMoneyTextView.text = MoneyText
+//                    TotalMoneyEditText.visibility = GONE
+//                    TotalMoneyTextView.visibility = VISIBLE
+//                }
+//
+//            }
+//        }
+//    }
 
 
 }

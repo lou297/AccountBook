@@ -3,6 +3,7 @@ package com.pingpong.householdledger.ReturnView
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import com.pingpong.householdledger.MainActivity.Companion.MoneyDecimalFormat
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.statistics_sub_group_created.view.*
 
@@ -12,5 +13,6 @@ class CompletedStatisticsView(context : Context , Content: String , TotalMoney :
         inflater.inflate(R.layout.statistics_sub_group_created,this,true)
         SubGroupContent.text = Content
         SubGroupTotalMoney.text = TotalMoney
+        StatisticsProgressBar.max = TotalMoney.replace(",","").toInt()
     }
 }
