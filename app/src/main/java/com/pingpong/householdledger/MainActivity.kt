@@ -37,11 +37,16 @@ class MainActivity : AppCompatActivity() {
         val TotalCalendarFragmentNum = 25
         var CalendarYearList = mutableListOf<Int>();
         var CalendarMonthList = mutableListOf<Int>();
-        var CalendarViewFragmentList : ArrayList<Fragment> = ArrayList()
         //달력 목록
+        var CalendarViewFragmentList : ArrayList<Fragment> = ArrayList()
+        //전체 기간 내역 목록
         val FullList : ArrayList<DateInfo> = ArrayList()
+        //특정 기간 내역 목록
         var ViewList : List<DateInfo> = mutableListOf()
-        val DateInfoMap : HashMap<Int,Int> = HashMap();
+        //내역이 존재하는 일자를 담고 있는 map. <일자, 내역의 수>
+        val DateInfoMap : HashMap<Int,Int> = HashMap()
+        //특정달의 메모를 담고 있는 map <6자리의 일자 ex)201509, 메모 내용> 6자리 일자는 YearList와 .MonthList 기준으로 저장
+        val MonthMemoMap : HashMap<String,String> = HashMap()
         val StatisticsList : ArrayList<StatisticsInfo> = ArrayList()
         val StatisticsAdapterList : ArrayList<String> = arrayListOf("-")
         var StatisticsDrawDown : Int = 0

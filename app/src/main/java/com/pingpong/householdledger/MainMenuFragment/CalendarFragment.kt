@@ -1,5 +1,6 @@
 package com.pingpong.householdledger.MainMenuFragment
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
@@ -13,10 +14,13 @@ import com.pingpong.householdledger.CalendarTab.CalendarViewFragment
 import com.pingpong.householdledger.MainActivity.Companion.CalendarMonthList
 import com.pingpong.householdledger.MainActivity.Companion.CalendarViewFragmentList
 import com.pingpong.householdledger.MainActivity.Companion.CalendarYearList
+import com.pingpong.householdledger.MainActivity.Companion.DATE
 import com.pingpong.householdledger.MainActivity.Companion.MONTH
+import com.pingpong.householdledger.MainActivity.Companion.MonthMemoMap
 import com.pingpong.householdledger.MainActivity.Companion.Today
 import com.pingpong.householdledger.MainActivity.Companion.TotalCalendarFragmentNum
 import com.pingpong.householdledger.MainActivity.Companion.YEAR
+import com.pingpong.householdledger.PopUpMenu.CalendarMonthMemoActivity
 import com.pingpong.householdledger.R
 import kotlinx.android.synthetic.main.main_frag_calendar.*
 import java.util.*
@@ -27,16 +31,29 @@ class CalendarFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         ReStartCalendarList(Today.get(Calendar.YEAR),Today.get(Calendar.MONTH))
 
+        //이전 달 보여주기
         PrevMonthBut.setOnClickListener {
             CalendarViewPagerControl("Prev")
         }
+        //다음 달 보여주기
         NextMonthBut.setOnClickListener {
             CalendarViewPagerControl("Next")
         }
+        //달력 월 변경
         CalendarYearAndMonth.setOnClickListener {
             val PopUpMenu = Intent(context, CalendarPopUpActivity::class.java)
             PopUpMenu.putExtra(YEAR, CalendarYearList[TotalCalendarFragmentNum/2])
             startActivityForResult(PopUpMenu, SELECT_MONTH_INTENT)
+        }
+        //달력 메모 수정
+        MonthMemoTextView.setOnClickListener {
+            val Date : String = when(CalendarMonthList[TotalCalendarFragmentNum/2]){
+                in 1..9 -> CalendarYearList[TotalCalendarFragmentNum/2].toString() + "0" + CalendarMonthList[TotalCalendarFragmentNum/2]
+                else -> CalendarYearList[TotalCalendarFragmentNum/2].toString() + CalendarMonthList[TotalCalendarFragmentNum/2]
+            }
+            val intent = Intent(context, CalendarMonthMemoActivity::class.java)
+            intent.putExtra(DATE,Date)
+            startActivity(intent)
         }
         super.onActivityCreated(savedInstanceState)
     }
@@ -127,6 +144,12 @@ class CalendarFragment : Fragment() {
 
     private fun SetCalendarYearAndMonth(index: Int) {
         CalendarYearAndMonth.text = String.format("${CalendarYearList[index]}년 ${CalendarMonthList[index]}월")
+
+        val Date : String = when(CalendarMonthList[index]){
+            in 1..9 -> CalendarYearList[index].toString() + "0" + CalendarMonthList[index]
+            else -> CalendarYearList[index].toString() + CalendarMonthList[index]
+        }
+        MonthMemoTextView.text = MonthMemoMap.get(Date)
     }
 
     private fun AddCalendarFragment(s: String) {
