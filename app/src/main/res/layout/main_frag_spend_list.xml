@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
         <LinearLayout
+                android:id="@+id/SpendListMessageLayout"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -22,7 +26,24 @@
         <android.support.v7.widget.RecyclerView
                 android:id="@+id/SpendListRecylerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
+                android:layout_height="0dp"
+                android:layout_weight="9">
         </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+        <Button
+                android:id="@+id/SlidingStatisticsButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:id="@+id/SlidingStatistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+    </LinearLayout>
+
+</FrameLayout>
